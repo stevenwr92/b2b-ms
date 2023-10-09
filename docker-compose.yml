@@ -1,0 +1,63 @@
+version: "3"
+services:
+  dev-db:
+    image: postgres:13
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123
+      POSTGRES_DB: go
+    networks:
+      - my-network
+    container_name: my-postgres
+
+  auth:
+    build:
+      context: .
+      dockerfile: ./apps/Auth/Dockerfile
+    ports:
+      - "7000:7000"
+    networks:
+      - my-network
+    container_name: my-auth
+    env_file:
+      - .env
+
+  tenant:
+    build:
+      context: .
+      dockerfile: ./apps/Tenant/Dockerfile
+    ports:
+      - "7001:7001"
+    networks:
+      - my-network
+    container_name: b2b-tenant
+    env_file:
+      - .env
+
+  group:
+    build:
+      context: .
+      dockerfile: ./apps/Group/Dockerfile
+    ports:
+      - "8001:8001"
+    networks:
+      - my-network
+    container_name: my-group
+
+  admin:
+    build:
+      context: .
+      dockerfile: ./apps/SuperAdmin/Dockerfile
+    ports:
+      - "7002:7002"
+    networks:
+      - my-network
+    container_name: admin
+    env_file:
+      - .env
+
+networks:
+  my-network:
+    driver: bridge
