@@ -15,7 +15,7 @@ var validate = validator.New()
 
 func HelloWorld(c *fiber.Ctx) error {
 	return c.Status(fiber.StatusOK).JSON(fiber.Map{
-		"Message": "Hello World",
+		"Message": "Hello World Admin",
 	})
 }
 

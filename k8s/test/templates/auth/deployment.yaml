@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: auth
+  name: auth
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: auth
+  template:
+    metadata:
+      labels:
+        app: auth
+        # annotations:
+        #   rollme: '{{ randAlphaNum 5 | quote }}'
+    spec:
+      containers:
+      - image: 431270210504.dkr.ecr.ap-southeast-3.amazonaws.com/auth:latest
+        name: auth
+        ports:
+        - containerPort: 7000
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%

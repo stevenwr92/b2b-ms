@@ -15,6 +15,8 @@ func UserRoutes(app *fiber.App) {
 
 	admin.Post("/login", handler.Login)
 
-	admin.Get("/", middleware.ProtectedAdmin(), handler.HelloWorld)
+	admin.Get("/", handler.HelloWorld)
+
+	admin.Get("/protected", middleware.ProtectedAdmin(), handler.HelloWorld)
 
 }

@@ -1,10 +1,6 @@
 # Use the official Go image as the base image
 FROM golang:latest
 
-RUN apt-get update && \
-    apt-get install -y docker.io
-
-RUN systemctl start docker
 
 # Set the working directory inside the container
 WORKDIR /app

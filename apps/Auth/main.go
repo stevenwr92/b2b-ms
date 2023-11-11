@@ -14,6 +14,8 @@ func main() {
 
 	app := fiber.New()
 	models.ConnectDatabase()
+
+	// app.Get("/", handler.HelloWorld)
 	routes.UserRoutes(app)
 
 	err := app.Listen(":7000")

@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: b2b-ms
+  annotations:
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    kubernetes.io/ingress.class: alb
+    alb.ingress.kubernetes.io/subnets: subnet-0a61b330063e6e2f5, subnet-0dea2ecfc1ae36aa0, subnet-011bb6280c80b49a4
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /*
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: auth
+            port:
+              number: 7000
